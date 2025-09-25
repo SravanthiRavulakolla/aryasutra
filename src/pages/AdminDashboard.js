@@ -4,14 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AddCenterModal from '../components/AddCenterModal';
 import VerifyPractitionerModal from '../components/VerifyPractitionerModal';
-import CenterReport from '../components/CenterReport';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isAddCenterModalOpen, setIsAddCenterModalOpen] = useState(false);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   const stats = [
     { title: 'Total Centers', value: '24', change: '+3 this month', color: 'bg-blue-500' },
@@ -178,7 +176,7 @@ const AdminDashboard = () => {
                   Add Center
                 </button>
                 <button 
-                  onClick={() => setIsReportModalOpen(true)}
+                  onClick={() => navigate('/admin/report')}
                   className="p-3 bg-purple-50 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-800 transition-colors">
                   Generate Report
                 </button>
@@ -203,9 +201,7 @@ const AdminDashboard = () => {
         onClose={() => setIsVerifyModalOpen(false)}
       />
 
-      {isReportModalOpen && (
-        <CenterReport onClose={() => setIsReportModalOpen(false)} />
-      )}
+
     </div>
   );
 };

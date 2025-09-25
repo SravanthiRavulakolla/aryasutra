@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import PatientBooking from './pages/PatientBooking';
 import Ritucharya from './pages/Ritucharya';
 import AdminDashboard from './pages/AdminDashboard';
+import DetailedReport from './pages/DetailedReport';
 import PractitionerDashboard from './pages/PractitionerDashboard';
 import ProgressDashboardAyursutra from './pages/ProgressDashboardAyursutra';
 import TestCredentials from './pages/TestCredentials';
@@ -141,6 +142,14 @@ function App() {
               } />
 
               {/* Catch all route */}
+              <Route path="/admin/report" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <Layout>
+                    <DetailedReport />
+                  </Layout>
+                </ProtectedRoute>
+              } />
+
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
