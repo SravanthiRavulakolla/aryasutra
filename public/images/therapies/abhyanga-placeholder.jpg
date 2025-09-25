@@ -1,0 +1,15 @@
+data:image/svg+xml;base64,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF7CD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FDE68A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <rect x="50" y="50" width="300" height="200" rx="20" fill="rgba(255,255,255,0.8)" stroke="#D97706" stroke-width="2"/>
+  <text x="200" y="100" font-family="serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#92400E">Abhyanga</text>
+  <text x="200" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#A16207">Full Body Oil Massage</text>
+  <text x="200" y="180" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#92400E">Synchronized massage with warm herbal oils</text>
+  <text x="200" y="200" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#92400E">Improves circulation and releases toxins</text>
+  <text x="200" y="220" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#92400E">Promotes deep relaxation and vitality</text>
+</svg>

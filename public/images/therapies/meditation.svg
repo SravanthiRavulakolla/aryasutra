@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F2FE;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="aura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#DBEAFE;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#BFDBFE;stop-opacity:0.2" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="200" y="40" font-family="serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#1E3A8A">Meditation</text>
+  <text x="200" y="65" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#3B82F6">Guided Mental Practice for Balance</text>
+  
+  <!-- Aura/Energy field -->
+  <ellipse cx="200" cy="180" rx="100" ry="80" fill="url(#aura)"/>
+  
+  <!-- Sitting figure -->
+  <ellipse cx="200" cy="200" rx="25" ry="15" fill="#F3E8D3" stroke="#1E3A8A" stroke-width="2"/>
+  <circle cx="200" cy="165" r="20" fill="#F3E8D3" stroke="#1E3A8A" stroke-width="2"/>
+  
+  <!-- Arms in meditation position -->
+  <ellipse cx="180" cy="190" rx="8" ry="15" fill="#F3E8D3" transform="rotate(-30 180 190)"/>
+  <ellipse cx="220" cy="190" rx="8" ry="15" fill="#F3E8D3" transform="rotate(30 220 190)"/>
+  
+  <!-- Lotus pose legs -->
+  <ellipse cx="185" cy="210" rx="15" ry="8" fill="#F3E8D3"/>
+  <ellipse cx="215" cy="210" rx="15" ry="8" fill="#F3E8D3"/>
+  
+  <!-- Energy/breath visualization -->
+  <circle cx="180" cy="140" r="3" fill="#3B82F6" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="220" cy="145" r="2.5" fill="#60A5FA" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="200" cy="130" r="2" fill="#93C5FD" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Benefits text -->
+  <text x="200" y="250" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#1E3A8A">• Reduces Stress</text>
+  <text x="200" y="270" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#1E3A8A">• Improves Focus & Clarity</text>
+  <text x="200" y="290" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#1E3A8A">• Enhances Emotional Balance</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="70" cy="80" r="12" fill="#60A5FA" opacity="0.3"/>
+  <circle cx="330" cy="100" r="18" fill="#3B82F6" opacity="0.2"/>
+</svg>

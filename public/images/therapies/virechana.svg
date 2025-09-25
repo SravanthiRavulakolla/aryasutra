@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0FDF4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DCFCE7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="herbs" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16A34A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="200" y="40" font-family="serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#14532D">Virechana</text>
+  <text x="200" y="65" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#166534">Herbal Detoxification Therapy</text>
+  
+  <!-- Herbal bowl -->
+  <ellipse cx="200" cy="140" rx="50" ry="15" fill="#A3A3A3" stroke="#525252" stroke-width="2"/>
+  <ellipse cx="200" cy="135" rx="45" ry="12" fill="url(#herbs)"/>
+  
+  <!-- Herbal ingredients around the bowl -->
+  <circle cx="150" cy="120" r="6" fill="#22C55E" opacity="0.8"/>
+  <circle cx="160" cy="110" r="4" fill="#16A34A" opacity="0.8"/>
+  <circle cx="250" cy="115" r="5" fill="#15803D" opacity="0.8"/>
+  <circle cx="240" cy="125" r="4.5" fill="#22C55E" opacity="0.8"/>
+  
+  <!-- Steam/vapor rising -->
+  <ellipse cx="185" cy="115" rx="3" ry="8" fill="#D1D5DB" opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-10; 0,0" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="200" cy="110" rx="2.5" ry="10" fill="#D1D5DB" opacity="0.5">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-12; 0,0" dur="2.8s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="215" cy="118" rx="3.5" ry="9" fill="#D1D5DB" opacity="0.7">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="3.2s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Detox symbols/arrows pointing away -->
+  <path d="M140 170 L120 190 M120 170 L140 190" stroke="#16A34A" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <path d="M260 170 L280 190 M280 170 L260 190" stroke="#16A34A" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Body silhouette -->
+  <ellipse cx="200" cy="200" rx="30" ry="20" fill="#F3E8D3" stroke="#16A34A" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Benefits text -->
+  <text x="200" y="240" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#14532D">• Liver & Intestinal Cleansing</text>
+  <text x="200" y="260" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#14532D">• Expels Pitta Toxins</text>
+  <text x="200" y="280" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#14532D">• Treats Metabolic Disorders</text>
+  
+  <!-- Decorative herbs -->
+  <path d="M50 80 Q60 70 70 80 Q60 90 50 80" fill="#22C55E" opacity="0.6"/>
+  <path d="M350 250 Q360 240 370 250 Q360 260 350 250" fill="#16A34A" opacity="0.6"/>
+</svg>

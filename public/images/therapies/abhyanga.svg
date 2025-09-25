@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF7CD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FDE68A;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F3E8D3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E6D3B7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="200" y="40" font-family="serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#92400E">Abhyanga</text>
+  <text x="200" y="65" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#A16207">Full Body Oil Massage</text>
+  
+  <!-- Simple figure representing massage -->
+  <ellipse cx="200" cy="130" rx="60" ry="40" fill="url(#skin)" stroke="#A16207" stroke-width="2"/>
+  
+  <!-- Hands representing massage -->
+  <ellipse cx="160" cy="115" rx="15" ry="8" fill="#D69E2E" opacity="0.8"/>
+  <ellipse cx="240" cy="115" rx="15" ry="8" fill="#D69E2E" opacity="0.8"/>
+  
+  <!-- Oil drops -->
+  <circle cx="180" cy="100" r="3" fill="#F59E0B" opacity="0.7"/>
+  <circle cx="220" cy="105" r="2" fill="#F59E0B" opacity="0.7"/>
+  <circle cx="195" cy="95" r="2.5" fill="#F59E0B" opacity="0.7"/>
+  
+  <!-- Benefits text -->
+  <text x="200" y="200" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#92400E">• Improves Blood Circulation</text>
+  <text x="200" y="220" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#92400E">• Releases Toxins</text>
+  <text x="200" y="240" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#92400E">• Promotes Relaxation</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="50" r="20" fill="#F59E0B" opacity="0.2"/>
+  <circle cx="350" cy="250" r="25" fill="#D69E2E" opacity="0.2"/>
+</svg>
