@@ -107,7 +107,7 @@ const DetailedReport = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:bg-gray-900 py-6">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="mb-6 flex justify-between items-center">
