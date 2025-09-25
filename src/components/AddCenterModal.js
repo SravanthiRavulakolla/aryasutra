@@ -22,7 +22,14 @@ const AddCenterModal = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+
     try {
+      // Validate form data
+      if (!formData.name.trim() || !formData.location.trim() || !formData.contact.trim()) {
+        throw new Error('All fields are required');
+      }
+
       const response = await fetch('http://localhost:5001/api/centers', {
         method: 'POST',
         headers: {
@@ -31,19 +38,29 @@ const AddCenterModal = ({ isOpen, onClose, onSubmit }) => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to add center');
+      const result = await response.json();
+      
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to add center. Please try again.');
       }
 
-      onSubmit();
-      onClose();
-      setFormData({
-        name: '',
-        location: '',
-        contact: '',
-        verified: true
-      });
+      if (result.center) {
+        // Successfully added
+        if (onSubmit) {
+          onSubmit(result.center);
+        }
+        onClose();
+        setFormData({
+          name: '',
+          location: '',
+          contact: '',
+          verified: true
+        });
+      } else {
+        throw new Error('Invalid response from server. Please try again.');
+      }
     } catch (err) {
+      console.error('Error adding center:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -56,13 +73,13 @@ const AddCenterModal = ({ isOpen, onClose, onSubmit }) => {
     <AnimatePresence>
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center">
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose} />
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm" onClick={onClose} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
+            className="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
           >
             <div className="absolute top-0 right-0 pt-4 pr-4">
               <button
@@ -138,14 +155,14 @@ const AddCenterModal = ({ isOpen, onClose, onSubmit }) => {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-ayurveda-primary text-base font-medium text-white hover:bg-ayurveda-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ayurveda-primary sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#8D6E63] text-base font-medium text-white hover:bg-[#6D4C41] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8D6E63] sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
                     >
                       {loading ? 'Adding...' : 'Add Center'}
                     </button>
                     <button
                       type="button"
                       onClick={onClose}
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ayurveda-primary sm:mt-0 sm:w-auto sm:text-sm"
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8D6E63] sm:mt-0 sm:w-auto sm:text-sm"
                     >
                       Cancel
                     </button>

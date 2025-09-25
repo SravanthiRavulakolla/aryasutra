@@ -4,12 +4,14 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AddCenterModal from '../components/AddCenterModal';
 import VerifyPractitionerModal from '../components/VerifyPractitionerModal';
+import CenterReport from '../components/CenterReport';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isAddCenterModalOpen, setIsAddCenterModalOpen] = useState(false);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   const stats = [
     { title: 'Total Centers', value: '24', change: '+3 this month', color: 'bg-blue-500' },
@@ -172,19 +174,13 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-2 gap-3">
                 <button 
                   onClick={() => setIsAddCenterModalOpen(true)}
-                  className="p-3 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors">
+                  className="p-3 bg-[#8D6E63] bg-opacity-10 text-[#8D6E63] rounded-lg hover:bg-opacity-20 transition-colors">
                   Add Center
                 </button>
                 <button 
-                  onClick={() => setIsVerifyModalOpen(true)}
-                  className="p-3 bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 transition-colors">
-                  Verify Practitioner
-                </button>
-                <button className="p-3 bg-purple-50 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-800 transition-colors">
+                  onClick={() => setIsReportModalOpen(true)}
+                  className="p-3 bg-purple-50 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-800 transition-colors">
                   Generate Report
-                </button>
-                <button className="p-3 bg-orange-50 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-800 transition-colors">
-                  System Settings
                 </button>
               </div>
             </div>
@@ -206,6 +202,10 @@ const AdminDashboard = () => {
         isOpen={isVerifyModalOpen}
         onClose={() => setIsVerifyModalOpen(false)}
       />
+
+      {isReportModalOpen && (
+        <CenterReport onClose={() => setIsReportModalOpen(false)} />
+      )}
     </div>
   );
 };

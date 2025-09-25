@@ -10,7 +10,23 @@ const Centers = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchCenters();
+    const loadCenters = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:5001/api/centers');
+        if (!response.ok) {
+          throw new Error('Failed to fetch centers');
+        }
+        const data = await response.json();
+        setCenters(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCenters();
   }, []);
 
   const fetchCenters = async () => {
@@ -73,10 +89,10 @@ const Centers = () => {
       className="container mx-auto p-4"
     >
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Manage Centers</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Manage Centers</h1>
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="px-4 py-2 bg-ayurveda-primary text-white rounded-md hover:bg-ayurveda-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ayurveda-primary"
+          className="px-6 py-3 bg-[#8D6E63] text-white rounded-md hover:bg-[#6D4C41] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8D6E63] font-medium"
         >
           Add Center
         </button>
@@ -93,6 +109,9 @@ const Centers = () => {
                 City
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Contact
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                 Status
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -101,33 +120,44 @@ const Centers = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-            {centers.map((center) => (
-              <tr key={center._id}>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
-                  {center.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
-                  {center.location}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                    ${center.verified ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {center.verified ? 'Active' : 'Inactive'}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button
-                    onClick={() => handleStatusChange(center._id, center.verified ? 'inactive' : 'active')}
-                    className={`px-3 py-1 rounded-md text-sm font-medium text-white
-                      ${center.verified 
-                        ? 'bg-red-600 hover:bg-red-700' 
-                        : 'bg-green-600 hover:bg-green-700'}`}
-                  >
-                    {center.verified ? 'Deactivate' : 'Activate'}
-                  </button>
+            {centers.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                  No centers found
                 </td>
               </tr>
-            ))}
+            ) : (
+              centers.map((center) => (
+                <tr key={center._id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                    {center.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                    {center.location}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                    {center.contact}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                      ${center.verified ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                      {center.verified ? 'Active' : 'Inactive'}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() => handleStatusChange(center._id, center.verified ? 'inactive' : 'active')}
+                      className={`px-3 py-1 rounded-md text-sm font-medium text-white
+                        ${center.verified 
+                          ? 'bg-red-600 hover:bg-red-700' 
+                          : 'bg-green-600 hover:bg-green-700'}`}
+                    >
+                      {center.verified ? 'Deactivate' : 'Activate'}
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -135,7 +165,10 @@ const Centers = () => {
       <AddCenterModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        onSubmit={fetchCenters}
+        onSubmit={(newCenter) => {
+          setCenters([...centers, newCenter]);
+          setIsAddModalOpen(false);
+        }}
       />
     </motion.div>
   );

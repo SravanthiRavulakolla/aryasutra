@@ -34,6 +34,7 @@ const centerSchema = new mongoose.Schema({
   location: { type: String, required: true },
   contact: { type: String },
   verified: { type: Boolean, default: true },
+  registrationNumber: { type: String, unique: true, sparse: true },
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -144,16 +145,33 @@ app.get('/api/centers', async (req, res) => {
 app.post('/api/centers', async (req, res) => {
   try {
     const { name, location, contact, verified } = req.body;
+    
+    // Check for existing center with same name and location
+    const existingCenter = await Center.findOne({ name, location });
+    if (existingCenter) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'A center with this name and location already exists' 
+      });
+    }
+
     const center = new Center({
       name,
       location,
       contact,
-      verified: verified ?? true
+      verified: verified ?? true,
+      // Generate a unique registration number
+      registrationNumber: 'RC' + Date.now().toString().slice(-6)
     });
+
     await center.save();
     res.json({ success: true, center });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Center creation error:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to create center. Please try again.' 
+    });
   }
 });
 
