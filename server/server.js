@@ -23,6 +23,17 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['admin', 'practitioner', 'patient'], default: 'patient' },
   name: { type: String, required: true },
   status: { type: String, enum: ['pending', 'active', 'rejected', 'inactive'], default: 'pending' },
+  centerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Center' }, // Associated center for practitioners
+  specialization: { type: String }, // For practitioners
+  workingHours: {
+    monday: { start: String, end: String },
+    tuesday: { start: String, end: String },
+    wednesday: { start: String, end: String },
+    thursday: { start: String, end: String },
+    friday: { start: String, end: String },
+    saturday: { start: String, end: String },
+    sunday: { start: String, end: String }
+  },
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -75,11 +86,22 @@ app.use('/api/seasonal', require('./seasonal'));
 // Auth Routes
 app.post('/api/auth/signup', async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password, role, centerId, specialization, workingHours } = req.body;
     
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
+    }
+
+    // Validate center if practitioner
+    if (role === 'practitioner') {
+      if (!centerId) {
+        return res.status(400).json({ error: 'Center selection is required for practitioners' });
+      }
+      const center = await Center.findById(centerId);
+      if (!center) {
+        return res.status(400).json({ error: 'Selected center does not exist' });
+      }
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -88,7 +110,10 @@ app.post('/api/auth/signup', async (req, res) => {
       password: hashedPassword,
       role,
       name: email.split('@')[0],
-      status: role === 'practitioner' ? 'pending' : 'active'
+      status: role === 'practitioner' ? 'pending' : 'active',
+      centerId: role === 'practitioner' ? centerId : undefined,
+      specialization: role === 'practitioner' ? specialization : undefined,
+      workingHours: role === 'practitioner' ? workingHours : undefined
     });
 
     await user.save();
@@ -97,7 +122,14 @@ app.post('/api/auth/signup', async (req, res) => {
     
     res.json({
       success: true,
-      user: { id: user._id, email: user.email, role: user.role, name: user.name },
+      user: { 
+        id: user._id, 
+        email: user.email, 
+        role: user.role, 
+        name: user.name,
+        centerId: user.centerId,
+        specialization: user.specialization
+      },
       token
     });
   } catch (error) {

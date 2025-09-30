@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
@@ -9,17 +9,60 @@ const Signup = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'patient'
+    role: 'patient',
+    centerId: '',
+    specialization: '',
+    workingHours: {
+      monday: { start: '09:00', end: '17:00' },
+      tuesday: { start: '09:00', end: '17:00' },
+      wednesday: { start: '09:00', end: '17:00' },
+      thursday: { start: '09:00', end: '17:00' },
+      friday: { start: '09:00', end: '17:00' },
+      saturday: { start: '09:00', end: '17:00' },
+      sunday: { start: '', end: '' }
+    }
   });
+  const [centers, setCenters] = useState([]);
   const [error, setError] = useState('');
   const { signup, loading } = useAuth();
   const navigate = useNavigate();
 
+  // Fetch centers on component mount
+  useEffect(() => {
+    const fetchCenters = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/api/centers');
+        const data = await response.json();
+        setCenters(data);
+      } catch (error) {
+        console.error('Error fetching centers:', error);
+        setError('Failed to load centers');
+      }
+    };
+    fetchCenters();
+  }, []);
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    
+    if (name.includes('workingHours.')) {
+      const [day, field] = name.split('.')[1].split('_');
+      setFormData(prev => ({
+        ...prev,
+        workingHours: {
+          ...prev.workingHours,
+          [day]: {
+            ...prev.workingHours[day],
+            [field]: value
+          }
+        }
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
     setError('');
   };
 
@@ -41,7 +84,29 @@ const Signup = () => {
       return;
     }
 
-    const result = await signup(formData.email, formData.password, formData.role);
+    // Prepare the data for signup
+    const signupData = {
+      email: formData.email,
+      password: formData.password,
+      role: formData.role
+    };
+
+    // Add practitioner specific data
+    if (formData.role === 'practitioner') {
+      if (!formData.centerId) {
+        setError('Please select a center');
+        return;
+      }
+      if (!formData.specialization) {
+        setError('Please enter your specialization');
+        return;
+      }
+      signupData.centerId = formData.centerId;
+      signupData.specialization = formData.specialization;
+      signupData.workingHours = formData.workingHours;
+    }
+
+    const result = await signup(signupData);
     
     if (result.success) {
       // Redirect based on role
@@ -164,6 +229,73 @@ const Signup = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
+
+            {formData.role === 'practitioner' && (
+              <>
+                <div>
+                  <label htmlFor="centerId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Select Center
+                  </label>
+                  <select
+                    id="centerId"
+                    name="centerId"
+                    value={formData.centerId}
+                    onChange={handleChange}
+                    required={formData.role === 'practitioner'}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-ayurveda-primary focus:border-ayurveda-primary sm:text-sm"
+                  >
+                    <option value="">Select a center</option>
+                    {centers.map(center => (
+                      <option key={center._id} value={center._id}>
+                        {center.name} - {center.location}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="specialization" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Specialization
+                  </label>
+                  <input
+                    id="specialization"
+                    name="specialization"
+                    type="text"
+                    value={formData.specialization}
+                    onChange={handleChange}
+                    required={formData.role === 'practitioner'}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-ayurveda-primary focus:border-ayurveda-primary sm:text-sm"
+                    placeholder="Enter your specialization"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-700 dark:text-gray-300">Working Hours</h4>
+                  {Object.keys(formData.workingHours).map(day => (
+                    <div key={day} className="flex items-center space-x-4">
+                      <label className="w-24 text-sm text-gray-700 dark:text-gray-300 capitalize">
+                        {day}
+                      </label>
+                      <input
+                        type="time"
+                        name={`workingHours.${day}_start`}
+                        value={formData.workingHours[day].start}
+                        onChange={handleChange}
+                        className="w-32 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md"
+                      />
+                      <span className="text-gray-500">to</span>
+                      <input
+                        type="time"
+                        name={`workingHours.${day}_end`}
+                        value={formData.workingHours[day].end}
+                        onChange={handleChange}
+                        className="w-32 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           <div>

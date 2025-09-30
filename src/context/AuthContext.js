@@ -50,13 +50,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (email, password, role) => {
+  const signup = async (signupData) => {
     setLoading(true);
     try {
       const response = await fetch('http://localhost:5001/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role })
+        body: JSON.stringify(signupData)
       });
       
       const data = await response.json();

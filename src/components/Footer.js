@@ -83,16 +83,21 @@ const Footer = () => {
           {/* Social Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-ayurveda-secondary transition-colors">
-                Facebook
-              </a>
-              <a href="#" className="text-gray-400 hover:text-ayurveda-secondary transition-colors">
-                Twitter
-              </a>
-              <a href="#" className="text-gray-400 hover:text-ayurveda-secondary transition-colors">
-                Instagram
-              </a>
+            <div className="flex flex-col space-y-3">
+              <div className="flex items-center text-gray-300">
+                <span className="mr-2">📸</span>
+                <a href="https://instagram.com/ayursutra" target="_blank" rel="noreferrer" className="hover:text-ayurveda-secondary transition-colors">
+                  Instagram: @ayursutra
+                </a>
+              </div>
+              <div className="flex items-center text-gray-400">
+                <span className="mr-2">👍</span>
+                <a href="#" className="hover:text-ayurveda-secondary transition-colors">Facebook</a>
+              </div>
+              <div className="flex items-center text-gray-400">
+                <span className="mr-2">🐦</span>
+                <a href="#" className="hover:text-ayurveda-secondary transition-colors">Twitter</a>
+              </div>
             </div>
           </div>
         </div>

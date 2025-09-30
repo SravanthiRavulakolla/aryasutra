@@ -66,79 +66,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sacred Healing Centers Section */}
-      <section className="py-16 bg-gradient-to-br from-ayurveda-light via-ayurveda-cream to-amber-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <div className="flex items-center justify-center mb-6">
-              <div className="h-px bg-ayurveda-copper w-20"></div>
-              <span className="px-4 text-3xl">🏢</span>
-              <div className="h-px bg-ayurveda-copper w-20"></div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-ayurveda-dark mb-4" style={{ fontFamily: 'serif' }}>
-               Healing Centers
-            </h2>
-            <p className="text-lg text-amber-700 max-w-2xl mx-auto">
-              Connect with authenticated Ayurvedic practitioners and certified wellness centers blessed by ancient wisdom
-            </p>
-          </motion.div>
 
-          {loading ? (
-            <div className="flex justify-center py-12">
-              <Loader size="large" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {centers.map((center, index) => (
-                <motion.div
-                  key={center.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="bg-gradient-to-br from-white via-ayurveda-light to-ayurveda-cream rounded-lg shadow-lg p-6 border border-ayurveda-accent group cursor-pointer relative overflow-hidden"
-                >
-                  {/* Traditional border pattern */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-ayurveda-gold via-ayurveda-copper to-ayurveda-gold"></div>
-                  
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <div className="flex items-center mb-2">
-                        <span className="text-ayurveda-gold mr-2">🏢</span>
-                        <h3 className="text-xl font-semibold text-ayurveda-dark" style={{ fontFamily: 'serif' }}>
-                          {center.name}
-                        </h3>
-                      </div>
-                      <p className="text-amber-700 flex items-center">
-                        <span className="mr-1">📍</span>
-                        {center.location}
-                      </p>
-                    </div>
-                    {center.verified && (
-                      <div className="flex items-center bg-gradient-to-r from-ayurveda-gold to-ayurveda-turmeric text-ayurveda-dark px-3 py-1 rounded-full text-sm font-medium shadow-md">
-                        <span className="mr-1">ॐ</span>
-                        Verified
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <button className="w-full bg-gradient-to-r from-ayurveda-primary to-ayurveda-dark hover:from-ayurveda-dark hover:to-ayurveda-earth text-white py-3 px-4 rounded-lg transition-all duration-200 font-medium flex items-center justify-center">
-                      <span className="mr-2">🔍</span>
-                      View Sacred Details
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* Sacred Benefits Section */}
       <section className="py-16 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative">
@@ -229,6 +157,114 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-gradient-to-br from-ayurveda-light via-white to-amber-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-px bg-ayurveda-gold w-24"></div>
+              <span className="px-6 text-4xl">💬</span>
+              <div className="h-px bg-ayurveda-gold w-24"></div>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-ayurveda-dark mb-4" style={{ fontFamily: 'serif' }}>
+              Testimonials
+            </h2>
+            <p className="text-lg text-amber-700 max-w-2xl mx-auto">
+              Real stories from people who found balance and better health with our platform
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Meera Shah',
+                treatment: 'Panchakarma Detox',
+                practitioner: 'Dr. Arjun Kulkarni',
+                rating: 5,
+                avatar: '/images/people/meera.svg',
+                feedback:
+                  'Booking was effortless and the guidance was precise. The app kept me on track through reminders and post-therapy care tips—felt lighter and more focused within a week.'
+              },
+              {
+                name: 'Rahul Iyer',
+                treatment: 'Abhyanga & Shirodhara',
+                practitioner: 'Vaidya Nisha Rao',
+                rating: 5,
+                avatar: '/images/people/rahul.svg',
+                feedback:
+                  'Loved how I could compare centers and read practitioner profiles in one place. Sessions were deeply relaxing, and the follow-up plan inside the app made it easy to continue self-care.'
+              },
+              {
+                name: 'Ananya Verma',
+                treatment: 'PCOS Ayurvedic Management',
+                practitioner: 'Dr. Devika Menon',
+                rating: 5,
+                avatar: '/images/people/ananya.svg',
+                feedback:
+                  'The personalized recommendations matched my lifestyle perfectly. Progress tracking and weekly tips kept me consistent—noticed improved energy and better cycle regularity.'
+              },
+              {
+                name: 'Karthik Reddy',
+                treatment: 'Migraine Relief Program',
+                practitioner: 'Dr. Sanjay Mishra',
+                rating: 4,
+                avatar: '/images/people/karthik.svg',
+                feedback:
+                  'Clear scheduling and timely reminders reduced my missed sessions. Headaches are less frequent now, and the diet guidance in the app was practical and easy to follow.'
+              }
+            ].map((t, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative overflow-hidden bg-gradient-to-br from-white via-ayurveda-light to-ayurveda-cream rounded-xl border border-ayurveda-accent shadow-lg p-6"
+              >
+                {/* Decorative top border */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-ayurveda-gold via-ayurveda-copper to-ayurveda-gold"></div>
+
+                {/* Avatar + Quote */}
+                <div className="flex items-center mb-4">
+                  <img
+                    src={t.avatar}
+                    alt={`${t.name} avatar`}
+                    className="w-12 h-12 rounded-full object-cover ring-2 ring-ayurveda-gold mr-3"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="text-3xl text-ayurveda-gold">“</div>
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center mb-3" aria-label="Rating">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i} className={i < t.rating ? 'text-ayurveda-gold' : 'text-amber-300'}>★</span>
+                  ))}
+                  <span className="ml-2 text-sm text-amber-700">{t.rating}.0</span>
+                </div>
+
+                {/* Feedback */}
+                <p className="text-ayurveda-dark/90 leading-relaxed mb-4">{t.feedback}</p>
+
+                {/* Meta */}
+                <div className="text-sm text-amber-800">
+                  <p className="font-semibold text-ayurveda-dark">{t.name}</p>
+                  <p className="mt-1"><span className="font-semibold">Treatment</span>: {t.treatment}</p>
+                  <p><span className="font-semibold">Practitioner</span>: {t.practitioner}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };
